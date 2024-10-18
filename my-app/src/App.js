@@ -10,13 +10,15 @@ import MyBtn from './components/UI/button/MyBtn';
 import PostFilter from './components/PostFilter';
 import MyModal from './components/UI/MyModal/MyModal';
 import {usePosts} from './hooks/usePosts';
-import axios from 'axios'
+import axios from 'axios';
+import PostService from './API/PostService';
 
 function App() {
   const [posts,setPosts] = useState([]);
   const [filter,setFilter] = useState({sort:'',query:''});
   const [modal,setModal] = useState(false);
   const sortedAndSearchPosts = usePosts(posts, filter.sort, filter.query);
+  const [isPostsLoading,setIsPostsLoading] = useState(false);
 
   useEffect(() => {
     fetchPosts()
@@ -28,8 +30,12 @@ function App() {
   }
 
   async function fetchPosts(){
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-    setPosts(response.data)
+    setIsPostsLoading(true);
+    setTimeout( async () => {
+      const posts = await PostService.getAll();
+      setPosts(posts)
+      setIsPostsLoading(false);
+    },1000)
   }
 
   const removePost = (post) => {
@@ -38,7 +44,6 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={fetchPosts} >GET POST</button>
       <MyBtn style={{marginTop:'30px'}} onClick={() => setModal(true)} >
         Create post
       </MyBtn>
@@ -50,7 +55,10 @@ function App() {
         filter={filter}
         setFilter={setFilter}
       />
-      <PostList remove={removePost} posts={sortedAndSearchPosts} title={'List Posts 1'}/>
+      {isPostsLoading
+        ? <h1 style={{textAlign:'center'}}>Loading...</h1>
+        : <PostList remove={removePost} posts={sortedAndSearchPosts} title={'List Posts 1'}/>
+      }
     </div>
   );
 }
