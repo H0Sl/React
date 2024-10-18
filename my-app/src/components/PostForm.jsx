@@ -20,7 +20,7 @@ const PostForm = ({create}) => {
             value={post.title}
             onChange ={e => setPost({...post,title: e.target.value})}
             type="text" 
-            placeholder='Titile post'/>
+            placeholder='Title post'/>
             <MyInput 
             value={post.body}
             onChange ={e => setPost({...post,body: e.target.value})}
