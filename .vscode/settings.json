@@ -1,0 +1,11 @@
+{
+    "emmet.preferences": {  
+
+    },
+    "json.schemas": [
+
+    ],
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    }
+}
