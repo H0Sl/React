@@ -10,7 +10,7 @@ import PostService from '../API/PostService';
 import Loader from '../components/UI/Loader/Loader';
 import { useFetching } from '../hooks/useFetching';
 import { getPageCount} from '../utils/pages';
-import Pagination from '../components/UI/pagination/Pagination';
+import Pagination from '../components/UI/MyPagination/Pagination';
 
 function Posts() {
   const [posts,setPosts] = useState([]);
