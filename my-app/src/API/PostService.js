@@ -10,4 +10,12 @@ export default class PostFilter {
         })
         return response;
     }
+    static async getById(id){
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts/' + id)
+        return response;
+    }
+    static async getCommentsByIdPost(id){
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
+        return response;
+    }
 }
